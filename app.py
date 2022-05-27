@@ -38,19 +38,19 @@ t = st.time_input('Input time', datetime.time(8, 45))
 st.write('The time is', t)
 
 # Pickup longitude
-pickup_longitude = st.number_input('Pickup longitude', value = 40.7614327)
+pickup_longitude = st.number_input('Pickup longitude', value = -73.9798156)
 st.write('The current number is ', pickup_longitude)
 
 # Pickup latitude
-pickup_latitude = st.number_input('Pickup latitude', value = -73.9798156)
+pickup_latitude = st.number_input('Pickup latitude', value = 40.7614327)
 st.write('The current number is ', pickup_latitude)
 
 # dropoff longitude
-dropoff_longitude = st.number_input('Dropoff longitude', value = 40.6513111)
+dropoff_longitude = st.number_input('Dropoff longitude', value = -73.8803331)
 st.write('The current number is ', dropoff_longitude)
 
 # dropoff latitude
-dropoff_latitude = st.number_input('Dropoff latitude', value = -73.8803331)
+dropoff_latitude = st.number_input('Dropoff latitude', value = 40.6513111)
 st.write('The current number is ', dropoff_latitude)
 
 # passenger count
@@ -105,7 +105,7 @@ if st.button('Show fare'):
 def get_map_data():
 
     return pd.DataFrame(
-        [[pickup_longitude, pickup_latitude], [dropoff_longitude, dropoff_latitude]],
+        [[pickup_latitude, pickup_longitude], [dropoff_latitude, dropoff_longitude]],
         columns=['lat', 'lon']
     )
 df = get_map_data()

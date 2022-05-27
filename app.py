@@ -3,12 +3,21 @@ import datetime
 import datetime
 import requests
 import pandas as pd
-
+from geopy.geocoders import Nominatim
+import time
 
 
 '''
 # TaxiFareModel front
 '''
+# if st.button('Press here!'):
+#     st.snow()
+#     st.balloons()
+if st.button('Press here please!'):
+    with st.spinner('Wait for it...'):
+        time.sleep(5)
+    st.success('Just wasted your time!')
+    st.balloons()
 
 # st.markdown('''
 # Remember that there are several ways to output content into your web page...
@@ -37,21 +46,41 @@ st.write('The date is:', d)
 t = st.time_input('Input time', datetime.time(8, 45))
 st.write('The time is', t)
 
-# Pickup longitude
-pickup_longitude = st.number_input('Pickup longitude', value = -73.9798156, format = '%0.7f')
-st.write('The current number is ', pickup_longitude)
+#
+geolocator = Nominatim(user_agent="broken_fare")
+pickup_address = st.text_input('Pickup address', '175 5th Avenue NYC')
+st.write('The current address is ', pickup_address)
+location_pickup = geolocator.geocode(pickup_address)
 
-# Pickup latitude
-pickup_latitude = st.number_input('Pickup latitude', value = 40.7614327, format = '%0.7f')
-st.write('The current number is ', pickup_latitude)
+dropoff_address = st.text_input('Dropoff address', '170 5th Avenue NYC')
+st.write('The current address is ', dropoff_address)
+location_dropoff = geolocator.geocode(dropoff_address)
 
-# dropoff longitude
-dropoff_longitude = st.number_input('Dropoff longitude', value = -73.8803331, format = '%0.7f')
-st.write('The current number is ', dropoff_longitude)
+pickup_longitude = location_pickup.longitude
+pickup_latitude = location_pickup.latitude
+st.write((location_pickup.latitude, location_pickup.longitude))
 
-# dropoff latitude
-dropoff_latitude = st.number_input('Dropoff latitude', value = 40.6513111, format = '%0.7f')
-st.write('The current number is ', dropoff_latitude)
+dropoff_longitude = location_dropoff.longitude
+dropoff_latitude = location_dropoff.latitude
+st.write((location_dropoff.latitude, location_dropoff.longitude))
+
+#
+
+# # Pickup longitude
+# pickup_longitude = st.number_input('Pickup longitude', value = -73.9798156, format = '%0.7f')
+# st.write('The current number is ', pickup_longitude)
+
+# # Pickup latitude
+# pickup_latitude = st.number_input('Pickup latitude', value = 40.7614327, format = '%0.7f')
+# st.write('The current number is ', pickup_latitude)
+
+# # dropoff longitude
+# dropoff_longitude = st.number_input('Dropoff longitude', value = -73.8803331, format = '%0.7f')
+# st.write('The current number is ', dropoff_longitude)
+
+# # dropoff latitude
+# dropoff_latitude = st.number_input('Dropoff latitude', value = 40.6513111, format = '%0.7f')
+# st.write('The current number is ', dropoff_latitude)
 
 # passenger count
 passenger_count = st.selectbox('How many passengers ?', [0,1,2,3,4,5], 2)
@@ -100,7 +129,19 @@ if st.button('Show fare'):
     # st.write(response.json())
     st.write(f'The fare will be: {round(response.json()["fare"],2)}$')
 
+#
 
+# st.write(f'''
+#     <a target="_self" href="https://www.uber.com/be/en/">
+#         <button>
+#             Show fare
+#         </button>
+#     </a>
+#     ''',
+#     unsafe_allow_html=True
+# )
+
+#
 @st.cache
 def get_map_data():
 
@@ -111,3 +152,6 @@ def get_map_data():
 df = get_map_data()
 
 st.map(df)
+
+# if st.button('Press here!'):
+#     st.balloons()

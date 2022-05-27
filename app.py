@@ -10,14 +10,17 @@ import time
 '''
 # TaxiFareModel front
 '''
-# if st.button('Press here!'):
-#     st.snow()
-#     st.balloons()
+
 if st.button('Press here please!'):
     with st.spinner('Wait for it...'):
         time.sleep(5)
     st.success('Just wasted your time!')
     st.balloons()
+
+if st.button('Make it snow!'):
+    st.snow()
+
+
 
 # st.markdown('''
 # Remember that there are several ways to output content into your web page...

@@ -1,2 +1,2 @@
 streamlit
-typing-extensions
+typing_extensions
